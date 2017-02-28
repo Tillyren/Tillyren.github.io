@@ -1,0 +1,408 @@
+/*样式初始化*/
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6{font-weight:normal}
+table{border-collapse:collapse;border-spacing:0}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:'';}
+input{-webkit-appearance:none;border-radius:0}
+strong{font-weight:bold}
+
+/*全局样式*/
+body{
+    color:#000;
+    font:normal 14px/1.4 "helvetica neue",tahoma,
+            "hiragino sans gb",stheiti,
+            "wenquanyi micro hei",\5FAE\8F6F\96C5\9ED1,\5B8B\4F53,sans-serif;
+    width:100%;
+    overflow:hidden;
+    line-height:1
+}
+a{
+    color:#2094c4;
+    text-decoration:none;
+    outline:none
+}
+a:hover{color:#3498db}
+p{padding:0 0 20px}
+
+/*浮动及清除浮动*/
+.left{float:left}
+.right{float:right}
+.clearfix:before,.section:before,.nav ul:before{content:"";display:table}
+.clearfix:after,.section:after,.nav ul:after{content:"";display:table;clear:both}
+
+
+
+.section-wrap{
+    position:relative;
+    z-index:2; /*使每页文字等内容位于全屏主背景div之上，而得以显现 */
+}
+.section{
+    width:960px;
+    margin:0 auto; /*使每页水平居中显示*/
+}
+.section h1{
+    margin-bottom:40px;
+    font-size:36px; /*控制3,4,5页标题——前端作品，相关技能，联系本人*/
+}
+
+/*页面加载时显示的背景，加载完毕后，透明度渐变过渡为0，从而消失*/
+.overlay{
+    background:#ecf0f1;
+    position:absolute;
+    display:none;
+    top:0;left:0;right:0;bottom:0;
+    z-index:2;
+    opacity:1;
+    -webkit-transition:opacity 0.4s ease-in;
+    -moz-transition:opacity 0.4s ease-in;
+    -ms-transition:opacity 0.4s ease-in;
+    -o-transition:opacity 0.4s ease-in;
+    transition:opacity 0.4s ease-in;
+}
+.loading-process .overlay{display:block;}
+.finish-loading .overlay{opacity:0;}
+
+/*页面加载完毕，加载时的内容消失，只剩头像*/
+.finish-loading .loading-info,.finish-loading .loading-circle{opacity:0}
+.finish-loading .loading-avatar{border:4px solid #fff}
+.loading{
+    margin:auto;
+    position:fixed;
+    top:0;left:0;right:0;bottom:0; /*上面三句使加载区一开始的位置是水平垂直居中的，位置上移依靠Global.js中的reCal方法*/
+    width:120px;
+    height:120px;
+    z-index:10
+}
+.loading-circle{
+    /*三色圆*/
+    background-color:transparent;
+    opacity:.9;
+    border-top:10px solid #27ae60;
+    border-right:10px solid #d35400;
+    border-bottom:10px solid #2980b9;
+    border-left:10px solid #c0392b;
+    border-radius:50%;
+
+    /*水平居中*/
+    width:100px;height:100px;
+    margin:0 auto;
+
+    /*透明度渐变消失*/
+    -webkit-transition:all 0.4s ease-in;
+    -moz-transition:all 0.4s ease-in;
+    -ms-transition:all 0.4s ease-in;
+    -o-transition:all 0.4s ease-in;
+    transition:all 0.4s ease-in;
+
+    /*三色圆旋转动画*/
+    animation:spin 1s infinite linear;
+    -webkit-animation:spin 1s infinite linear;
+    -moz-animation:spin 1s infinite linear;
+    -o-animation:spin 1s infinite linear
+}
+/*CSS3三色圆旋转动画数据*/
+@keyframes spin{
+    0%{-webkit-transform:rotate(0deg)}
+    100%{-webkit-transform:rotate(360deg)}
+}
+@-moz-keyframes spin{
+    0%{-webkit-transform:rotate(0deg)}
+    100%{-webkit-transform:rotate(360deg)}
+}
+@-webkit-keyframes spin{
+    0%{-webkit-transform:rotate(0deg)}
+    100%{-webkit-transform:rotate(360deg)}
+}
+@-o-keyframes spin{
+    0%{-webkit-transform:rotate(0deg)}
+    100%{-webkit-transform:rotate(360deg)}
+}
+/*头像，加载完成后会出现白色边框*/
+.loading-avatar{
+    width:100px;
+    height:100px;
+    overflow:hidden;
+    position:absolute;
+    top:10px;left:10px;
+    border-radius:50%;
+
+    /*加载完成后的边框过渡*/
+    -webkit-transition:border-width 0.4s ease-in;
+    -moz-transition:border-width 0.4s ease-in;
+    -ms-transition:border-width 0.4s ease-in;
+    -o-transition:border-width 0.4s ease-in;
+    transition:border-width 0.4s ease-in
+}
+.loading-avatar img{
+    width:100px;
+    height:100px;
+    border-radius:50px;/*使图片为圆形*/
+}
+.loading-info{
+    position:absolute;
+    top:130%;width:160%;
+
+    -webkit-transition:opacity 0.4s ease-in;/*加载信息在加载完成后渐变消失*/
+    -moz-transition:opacity 0.4s ease-in;
+    -ms-transition:opacity 0.4s ease-in;
+    -o-transition:opacity 0.4s ease-in;
+    transition:opacity 0.4s ease-in;
+}
+
+/*缓出现效果*/
+.fade{
+    opacity:0;
+    position:relative;
+    top:10px;
+    -webkit-transition:all 0.2s ease-in;
+    -moz-transition:all 0.2s ease-in;
+    -ms-transition:all 0.2s ease-in;
+    -o-transition:all 0.2s ease-in;
+    transition:all 0.2s ease-in;
+}
+.fade.fade-in{
+    opacity:1; /*通过global.js中的fadeInByOrder方法添加*/
+    top:0
+}
+
+/*导航区*/
+.section-header{
+    position:fixed; /*IE8及以下浏览器有兼容问题*/
+    top:0;left:0;right:0;
+    z-index:20;
+}
+
+.finish-loading .nav{opacity:.6} /*加载完成后透明度降低*/
+.nav{
+    width:960px;
+    position:absolute;
+    z-index:5;
+}
+.nav li{
+    float:left;
+    text-align:center;
+    position:relative;
+    width:20%;
+}
+.nav li a{
+    color:#fff;
+    font-size:30px;
+    display:block;
+    padding:60px 0;
+    width:100%;
+
+    -webkit-transition:all 0.6s ease-in;/*此过渡主要实现a元素的颜色渐变*/
+    -moz-transition:all 0.6s ease-in;   /*添加shrink样式后，字体大小和padding的变化*/
+    -ms-transition:all 0.6s ease-in;
+    -o-transition:all 0.6s ease-in;
+    transition:all 0.6s ease-in;
+}
+.nav .fade1 a:hover,.nav .fade1.hover a{color:#95a5a6} /*.nav .fade1.hover a是让换页时，导航栏相应位置的颜色也变化*/
+.nav .fade2 a:hover,.nav .fade2.hover a{color:#2980b9} /*hover类是通过Global.js中的fire_nav方法添加*/
+.nav .fade3 a:hover,.nav .fade3.hover a{color:#c0392b}
+.nav .fade4 a:hover,.nav .fade4.hover a{color:#27ae60}
+.nav .back-home{
+    height:1px;
+    -webkit-transition:none;/*去掉渐变效果*/
+    -moz-transition:none;
+    -ms-transition:none;
+    -o-transition:none;
+    transition:none
+}
+.nav .back-home a{ /*控制头像*/
+    position:absolute;
+    width:100px;
+    height:100px;
+    left:50%;
+    margin-left:-50px;
+    border-radius:50%; /*圆形*/
+    border:4px solid #fff;
+    overflow:hidden;
+    text-indent:-9999px; /*偏移文字，从而使文字隐藏，只显示背景图片*/
+    background:url(../images/lizi3.jpg);
+    -webkit-background-size:100px 100px;
+    background-size:100px 100px;
+    padding:0 !important;
+    top:30px
+}
+.nav-bg{  /*控制导航条背景*/
+    background:#000;
+    position:relative;
+    z-index:1;
+    height:80px;
+    margin:0 auto;
+    width:0; /*初始宽度*/
+
+    -webkit-transition:width 0.6s ease-in;/*此过渡主要是为了添加shrink样式后，宽度展开*/
+    -moz-transition:width 0.6s ease-in;
+    -ms-transition:width 0.6s ease-in;
+    -o-transition:width 0.6s ease-in;
+    transition:width 0.6s ease-in
+}
+.shrink .nav li a{   /*添加shrink样式后，字体变小，padding变小*/
+    padding:20px 0;
+    font-size:24px;
+}
+.shrink .nav .back-home a{top:0;}/*添加shrink样式后头像置顶*/
+.shrink .nav-bg{width:100%;} /*添加shrink后宽度展开*/
+
+/*首页背景*/
+.home-bg{
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    z-index:1;
+}
+
+
+/*第一页*/
+.section-fristpage{
+    text-align:center;
+    color:#fff;
+    font-size:30px;
+}
+.section-fristpage p{padding-bottom:0;}
+.section-fristpage .fade2{margin-top:60px;} /*控制三行文字的间距*/
+.section-fristpage .fade3{margin-top:60px;}
+
+/*关于页*/
+.section-about{background:url("../images/sky2.jpg") no-repeat;} /*其他样式沿用第一页*/
+
+/*下滑箭头效果*/
+.scroll-tip{
+    display:block;
+    width:60px;height:60px;
+    border-radius:50%;
+    position:absolute;
+    top:auto !important;/*bottom和top的问题还没想明白*/
+    left:50%;
+    margin-left:-30px; /*与left一起实现水平居中*/
+    text-indent:-9999px; /*偏移文字*/
+}
+.button2{
+    bottom:40px;
+    opacity:0.75;
+    background:url(../images/arrow.png);/*此处使用雪碧图*/
+
+    -webkit-transition:all .2s ease-in 0s;/*hover时，箭头大小和透明度的过渡*/
+    -moz-transition:all .2s ease-in 0s;
+    transition:all .2s ease-in 0s;
+
+    z-index:9999;
+    -webkit-transform:scale(0.8); /*箭头缩小*/
+    transform:scale(0.8);
+    -moz-transform:scale(0.8);
+}
+.button2:hover{
+     opacity:1;
+     -webkit-transform:scale(1); /*hover时，箭头透明度和大小还原*/
+     cursor:pointer;
+ }
+.dark-button2{background-position:0 -60px;} /*雪碧图*/
+
+.button2-2-top{  /*控制最后一页的小火箭*/
+    background-position:-60px 0; /*雪碧图*/
+    width:80px;height:80px;
+}
+
+/*作品区*/
+.section-works{background:#27ae60;}
+.works-content h1{       /*前端作品四个字居中*/
+    text-align:center;
+    color:#fff;
+}
+.works-content .works-list .fade{
+    top:20px;left:10px;
+    -webkit-transition:all 0.4s ease-in; /*此处过渡是当fade-in类添加后，向左上方缓缓出现*/
+    -moz-transition:all 0.4s ease-in;
+    -ms-transition:all 0.4s ease-in;
+    -o-transition:all 0.4s ease-in;
+    transition:all 0.4s ease-in;
+}
+.works-content .works-list .fade.fade-in{left:0;top:0;}/*上条样式的过渡结果*/
+.works-content .works-item{  /*一个作品栏*/
+    position:relative;
+    width:300px;
+    margin-left:30px;margin-bottom:30px;
+    float:left;
+    overflow:hidden;
+}
+.works-content .works-item.first{margin-left:0;} /*第一个作品栏的左外边距*/
+.works-content .works-item img{
+    -webkit-transform:scale(1);  /*此变换其实可以省略，只为提醒过渡的目标样式*/
+    -moz-transform:scale(1);
+    -ms-transform:scale(1);
+    -o-transform:scale(1);
+    transform:scale(1);
+    -webkit-transition:all 0.2s ease-in;  /*图片放大的过渡*/
+    -moz-transition:all 0.2s ease-in;
+    -ms-transition:all 0.2s ease-in;
+    -o-transition:all 0.2s ease-in;
+    transition:all 0.2s ease-in;
+}
+.works-content .works-item:hover img{
+    -webkit-transform:scale(1.5);        /*图片hover放大*/
+    -moz-transform:scale(1.5);
+    -ms-transform:scale(1.5);
+    -o-transform:scale(1.5);
+    transform:scale(1.5);
+}
+.works-content .works-item:hover .work-info{top:0;} /*hover时，项目信息上移效果*/
+.works-content .works-item .work-info{
+    position:absolute;
+    top:137px;
+    padding:10px;left:0;right:0;
+    height:100%;
+    color:#fff;
+    background:rgba(0,0,0,0.8);
+    -webkit-transition:all 0.2s ease-in; /*主要是top位置的过渡*/
+    -moz-transition:all 0.2s ease-in;
+    -ms-transition:all 0.2s ease-in;
+    -o-transition:all 0.2s ease-in;
+    transition:all 0.2s ease-in;
+}
+.works-content .works-item .work-info h2{margin-bottom:20px;}
+.more-link{  /*查看更多按钮*/
+    color:#fff;
+    display:block;
+    padding:10px 20px;
+    width:60px;
+    text-align:center;
+    margin:0 auto;
+    background:#3d3d3d;
+    background:rgba(0,0,0,0.6);
+}
+.more-link:hover{  /*查看更多按钮hover时，透明度降低*/
+    color:#fff;
+    background:#3d3d3d;
+    background:rgba(0,0,0,0.4);
+}
+
+/*技能区*/
+.section-skill{background:#2980b9;}
+.skill-content h1{color:#fff;}
+.skill-content ul{color:#fff;}
+.skill-content li{font-size:18px;line-height:2;}
+.skill-content .fade{
+    top:0;left:10px;
+    -webkit-transition:all 0.2s ease-in; /*文字出现时右移效果的过渡*/
+    -moz-transition:all 0.2s ease-in;
+    -ms-transition:all 0.2s ease-in;
+    -o-transition:all 0.2s ease-in;
+    transition:all 0.2s ease-in;
+}
+.skill-content .fade.fade-in{left:0;} /*右移效果*/
+
+/*联系区*/
+.section-contact{background:#c0392b;color:#dadada;}
+.section-contact a{color:#fff;}
+.section-contact a:hover{color:#2980b9;}
+.section-contact .contact-content .left{width:40%;}
+.section-contact .contact-content .right{width:50%;}
+.section-contact .contact-content h1{color:#fff;margin-bottom:30px;}
+.section-contact .contact-content .contact-info{margin-top:20px;}
+.section-contact .contact-content h2{color:#fff;margin-bottom:20px;}
+.section-contact .contact-ways li{line-height:1.8;}
+
+
